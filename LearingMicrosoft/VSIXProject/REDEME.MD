@@ -4,9 +4,19 @@
 
 [learn.microsoft你的首个扩展](https://learn.microsoft.com/zh-cn/visualstudio/extensibility/vsix/get-started/first-extension?view=vs-2022)
 
-## FirsMenuCommand
+## Learing
 
-## InsertGuid
+### Demo Project
+
+#### FirstMenuCommand
+
+加载第一个菜单命令, 弹出提示框
+
+#### FirstWindow 
+
+加载一个窗口, 实现WebView2的初始化
+
+### InsertGuid 
 
 - 在光标位置插入新的GUID 
 

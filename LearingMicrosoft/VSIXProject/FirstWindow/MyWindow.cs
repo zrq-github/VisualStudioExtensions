@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using System;
 using System.Runtime.InteropServices;
+using Microsoft.Web.WebView2.Wpf;
 
 namespace FirstWindow
 {
@@ -18,6 +19,8 @@ namespace FirstWindow
     [Guid("c2a5f827-8d25-485d-868b-d8e0879f39db")]
     public class MyWindow : ToolWindowPane
     {
+        private readonly WebView2 webView;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MyWindow"/> class.
         /// </summary>
