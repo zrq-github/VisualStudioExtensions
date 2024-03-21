@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{6A2C1921-AB94-4B78-B914-551E4FA5E305}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,18 @@ Global
 		{85C505E9-CEE0-40C9-97BB-1FAB7B3AF0ED}.Release|arm64.Build.0 = Release|arm64
 		{85C505E9-CEE0-40C9-97BB-1FAB7B3AF0ED}.Release|x86.ActiveCfg = Release|x86
 		{85C505E9-CEE0-40C9-97BB-1FAB7B3AF0ED}.Release|x86.Build.0 = Release|x86
+		{6A2C1921-AB94-4B78-B914-551E4FA5E305}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A2C1921-AB94-4B78-B914-551E4FA5E305}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A2C1921-AB94-4B78-B914-551E4FA5E305}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{6A2C1921-AB94-4B78-B914-551E4FA5E305}.Debug|arm64.Build.0 = Debug|Any CPU
+		{6A2C1921-AB94-4B78-B914-551E4FA5E305}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6A2C1921-AB94-4B78-B914-551E4FA5E305}.Debug|x86.Build.0 = Debug|Any CPU
+		{6A2C1921-AB94-4B78-B914-551E4FA5E305}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A2C1921-AB94-4B78-B914-551E4FA5E305}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A2C1921-AB94-4B78-B914-551E4FA5E305}.Release|arm64.ActiveCfg = Release|Any CPU
+		{6A2C1921-AB94-4B78-B914-551E4FA5E305}.Release|arm64.Build.0 = Release|Any CPU
+		{6A2C1921-AB94-4B78-B914-551E4FA5E305}.Release|x86.ActiveCfg = Release|Any CPU
+		{6A2C1921-AB94-4B78-B914-551E4FA5E305}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

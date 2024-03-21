@@ -1,6 +1,12 @@
-﻿using LeetCodeVsExtension.Utils;
+using LeetCodeVsExtension.Utils;
+using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Threading;
 using Microsoft.Web.WebView2.Core;
+using System;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -32,6 +38,26 @@ namespace LeetCodeVsExtension
         private async Task ClearBrowsingDataAsync()
         {
             await this.myWebView2.CoreWebView2.Profile.ClearBrowsingDataAsync();
+        }
+
+        private void InitializeWebViewEvent()
+        {
+            this.myWebView2.CoreWebView2InitializationCompleted += MyWebView2_CoreWebView2InitializationCompleted;
+            // 禁用打开新的窗口, 直接就在当前页面进行跳转
+            this.myWebView2.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
+            this.myWebView2.CoreWebView2.WebMessageReceived += CoreWebView2_WebMessageReceived;
+        }
+
+        private void CoreWebView2_WebMessageReceived(object sender, CoreWebView2WebMessageReceivedEventArgs e)
+        {
+            var selectedTest = e.TryGetWebMessageAsString();
+            Console.WriteLine(selectedTest);
+        }
+
+        private async Task<string> GetSelectTestAsync()
+        {
+            var selectTest = await this.myWebView2.ExecuteScriptAsync("window.getSelection().toString()");
+            return selectTest;
         }
 
         #endregion
@@ -70,12 +96,7 @@ namespace LeetCodeVsExtension
 
         #endregion
 
-        private void InitializeWebViewEvent()
-        {
-            this.myWebView2.CoreWebView2InitializationCompleted += MyWebView2_CoreWebView2InitializationCompleted;
-            // 禁用打开新的窗口, 直接就在当前页面进行跳转
-            this.myWebView2.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
-        }
+ 
 
         private void CoreWebView2_NewWindowRequested(object sender, CoreWebView2NewWindowRequestedEventArgs e)
         {
@@ -115,19 +136,40 @@ namespace LeetCodeVsExtension
                 HandleError(nameof(InitializeWebViewAsync), ex);
             }
         }
-        private void btnDarkColor_Click(object sender, RoutedEventArgs e)
+        private void BtnDarkColor_Click(object sender, RoutedEventArgs e)
         {
             _ = SetLeetCodeColorToDarkAsync();
         }
 
-        private void btnLightColor_Click(object sender, RoutedEventArgs e)
+        private void BtnLightColor_Click(object sender, RoutedEventArgs e)
         {
             _ = SetLeetCodeColorToLightAsync();
         }
 
-        private void btnClearBrowerData_Click(object sender, RoutedEventArgs e)
+        private void BtnClearBrowerData_Click(object sender, RoutedEventArgs e)
         {
             _ = this.ClearBrowsingDataAsync();
+        }
+
+        private async void BtnCopyText_ClickAsync(object sender, RoutedEventArgs e)
+        {
+            Community.VisualStudio.Toolkit.MessageBox message = new Community.VisualStudio.Toolkit.MessageBox();
+
+            string text = await GetSelectTestAsync();
+            if(!text.Any() || text.Equals("\"\""))
+            {
+                await message.ShowErrorAsync("请选择输出");
+                return;
+            }
+
+            var code = StringUtil.ToListCode(text, out string errorMsg);
+            if (code == null)
+            {
+                await message.ShowErrorAsync(errorMsg);
+                return;
+            }
+
+            Clipboard.SetText(code);
         }
     }
 }

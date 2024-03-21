@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="LeetCodeVsExtension.MyToolWindowControl"
+<UserControl x:Class="LeetCodeVsExtension.MyToolWindowControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -20,9 +20,10 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            <Button Width="50" x:Name="btnDarkColor" Content="黑色主题" Click="btnDarkColor_Click"></Button>
-            <Button Width="50" x:Name="btnLightColor" Margin="5,0,0,0" Content="浅色主题" Click="btnLightColor_Click"></Button>
-            <Button Width="50" Visibility="Collapsed" x:Name="btnClearBrowerData" Margin="5,0,0,0" Content="清除浏览器数据" Click="btnClearBrowerData_Click"></Button>
+            <Button Width="50" x:Name="btnDarkColor" Content="黑色主题" Click="BtnDarkColor_Click"></Button>
+            <Button Width="50" x:Name="btnLightColor" Margin="5,0,0,0" Content="浅色主题" Click="BtnLightColor_Click"></Button>
+            <Button Width="50" x:Name="btnCopyText" Margin="5,0,0,0" Content="复制文字" Click="BtnCopyText_ClickAsync"></Button>
+            <Button Width="50" Visibility="Collapsed" x:Name="btnClearBrowerData" Margin="5,0,0,0" Content="清除浏览器数据" Click="BtnClearBrowerData_Click"></Button>
         </StackPanel>
         <webview:WebView2 Grid.Row="1" x:Name="myWebView2"></webview:WebView2>
     </Grid>
