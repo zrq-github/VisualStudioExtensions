@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,10 @@ namespace LeetCodeVsExtension.Utils
 {
     internal static class VsExtensionUtil
     {
+        public static string VsExtensionUserDataPath = $@"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "VsExtension")}";
+        public static string WebView2UserDataFolderPath = VsExtensionUtil.VsExtensionUserDataPath;
+
+
         public static bool IsDarkTheme()
         {
             IVsUIShell5 vsShell = (IVsUIShell5)ServiceProvider.GlobalProvider.GetService(typeof(SVsUIShell));

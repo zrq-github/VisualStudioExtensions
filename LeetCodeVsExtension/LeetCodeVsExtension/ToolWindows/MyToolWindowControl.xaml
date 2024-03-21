@@ -22,6 +22,7 @@
         <StackPanel Orientation="Horizontal">
             <Button Width="50" x:Name="btnDarkColor" Content="黑色主题" Click="btnDarkColor_Click"></Button>
             <Button Width="50" x:Name="btnLightColor" Margin="5,0,0,0" Content="浅色主题" Click="btnLightColor_Click"></Button>
+            <Button Width="50" Visibility="Collapsed" x:Name="btnClearBrowerData" Margin="5,0,0,0" Content="清除浏览器数据" Click="btnClearBrowerData_Click"></Button>
         </StackPanel>
         <webview:WebView2 Grid.Row="1" x:Name="myWebView2"></webview:WebView2>
     </Grid>

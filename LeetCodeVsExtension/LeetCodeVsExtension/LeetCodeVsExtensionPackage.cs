@@ -2,6 +2,8 @@
 global using Microsoft.VisualStudio.Shell;
 global using System;
 global using Task = System.Threading.Tasks.Task;
+using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio;
 using System.Runtime.InteropServices;
 using System.Threading;
 
@@ -17,7 +19,6 @@ namespace LeetCodeVsExtension
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             await this.RegisterCommandsAsync();
-
             this.RegisterToolWindows();
         }
     }

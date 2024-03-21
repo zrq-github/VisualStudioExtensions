@@ -1,4 +1,5 @@
-﻿using Microsoft.Web.WebView2.Core;
+﻿using LeetCodeVsExtension.Utils;
+using Microsoft.Web.WebView2.Core;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -7,7 +8,6 @@ namespace LeetCodeVsExtension
 {
     public partial class MyToolWindowControl : UserControl
     {
-        static string WebView2UserDataFolderPath = $@"{Path.Combine(PackageGuids.LeetCodeVsExtensionString, "WebView2Runing")}";
 
         public MyToolWindowControl()
         {
@@ -24,6 +24,14 @@ namespace LeetCodeVsExtension
         private void SetWebView2Color()
         {
             Environment.SetEnvironmentVariable("WEBVIEW2_DEFAULT_BACKGROUND_COLOR", "0");
+        }
+
+        /// <summary>
+        /// 清理浏览器的全部数据
+        /// </summary>
+        private async Task ClearBrowsingDataAsync()
+        {
+            await this.myWebView2.CoreWebView2.Profile.ClearBrowsingDataAsync();
         }
 
         #endregion
@@ -92,8 +100,7 @@ namespace LeetCodeVsExtension
         {
             try
             {
-                var userDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), WebView2UserDataFolderPath);
-                var environment = await CoreWebView2Environment.CreateAsync(null, userDataFolder, null);
+                var environment = await CoreWebView2Environment.CreateAsync(null, VsExtensionUtil.WebView2UserDataFolderPath, null);
                 await this.myWebView2.EnsureCoreWebView2Async(environment);
 
                 SetWebView2Color();
@@ -116,6 +123,11 @@ namespace LeetCodeVsExtension
         private void btnLightColor_Click(object sender, RoutedEventArgs e)
         {
             _ = SetLeetCodeColorToLightAsync();
+        }
+
+        private void btnClearBrowerData_Click(object sender, RoutedEventArgs e)
+        {
+            _ = this.ClearBrowsingDataAsync();
         }
     }
 }
