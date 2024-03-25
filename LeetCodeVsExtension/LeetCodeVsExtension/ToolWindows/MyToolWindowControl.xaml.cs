@@ -171,5 +171,15 @@ namespace LeetCodeVsExtension
 
             Clipboard.SetText(code);
         }
+
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            myWebView2.GoBack();
+        }
+
+        private void BtnForward_Click(object sender, RoutedEventArgs e)
+        {
+            myWebView2.GoForward();
+        }
     }
 }
