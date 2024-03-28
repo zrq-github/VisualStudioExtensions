@@ -1,3 +1,4 @@
+using LeetCodeVsExtension.Utils;
 using Newtonsoft;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -47,52 +48,32 @@ namespace TestProject1
     }
 
     [TestClass]
-    public class UnitTest1
+    public class LeetCodeTopicUtilTest
     {
         [TestMethod]
-        public void TestCopuInt()
+        public void TestCase2CShaperCode_Int()
         {
+            // Arrange
             string inputString = "[1,2,3,0,0,0]";
-            dynamic? dyObject = JsonConvert.DeserializeObject<dynamic>(inputString);
-            if (dyObject == null)
-            {
-                return;
-            }
-            if (dyObject is JArray jArray)
-            {
-                var list = new MyList<double>();
-                foreach (var item in jArray)
-                {
-                    if (item.ToObject(typeof(double)) is double value)
-                    {
-                        list.Add(value);
-                    }
-                }
-                Console.WriteLine(list.ToString());
-            }
+
+            // Act
+            var result = LeetCodeVsExtension.Utils.LeetCodeTopicUtil.TestCase2CShaperCode(inputString);
+
+            // Assert
+            Assert.AreEqual(result, "var input = new List<double>() { 1, 2, 3, 0, 0, 0};");
         }
 
         [TestMethod]
         public void TestCopyString()
         {
+            // Arrange
             string inputString = "[\"FrequencyTracker\", \"add\", \"add\", \"hasFrequency\"]";
-            dynamic? dyObject = JsonConvert.DeserializeObject<dynamic>(inputString);
-            if(dyObject == null )
-            {
-                return;
-            }
-            if(dyObject is JArray jArray)
-            {
-                var list = new MyList<string>();
-                foreach (var item in jArray)
-                {
-                    var value = item.ToObject(typeof(string)) as string;
-                    if (value != null)
-                    {
-                        list.Add(value);
-                    }
-                }
-            }
+
+            // Act
+            var result = LeetCodeVsExtension.Utils.LeetCodeTopicUtil.TestCase2CShaperCode(inputString);
+
+            // Assert
+            Assert.AreEqual(result, "var input = new List<string>() { \"FrequencyTracker\", \"add\", \"add\", \"hasFrequency\"};");
         }
     }
 }

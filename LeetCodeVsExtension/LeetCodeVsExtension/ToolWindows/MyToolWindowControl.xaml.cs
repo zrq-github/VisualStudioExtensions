@@ -1,6 +1,7 @@
 using LeetCodeVsExtension.Utils;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Text.Tagging;
 using Microsoft.VisualStudio.Threading;
 using Microsoft.Web.WebView2.Core;
 using System;
@@ -60,43 +61,7 @@ namespace LeetCodeVsExtension
             return selectTest;
         }
 
-        #endregion
-
-        #region LeetCode
-
-        /// <summary>
-        /// LeetCode 跟随系统
-        /// </summary>
-        /// <remarks>
-        /// 因为不知道设置 WebView2 本身默认的设置, 暂时先不使用
-        /// </remarks>
-        private void SetLeetCodeColorToSystem()
-        {
-            throw new NotImplementedException();
-            _ = this.myWebView2.ExecuteScriptAsync("document.getElementByClassName('flex cursor-pointer items-center space-x-3 rounded px-2 py-[10px] hover:bg-fill-4 dark:hover:bg-dark-fill-4 text-text-secondary dark:text-text-secondary')[0].click()");
-        }
-        /// <summary>
-        /// LeetCode 外观 浅色
-        /// </summary>
-        private async Task SetLeetCodeColorToLightAsync()
-        {
-            _ = await this.myWebView2.ExecuteScriptAsync("document.getElementsByClassName('flex items-center focus:outline-none')[2].click()");
-            _ = await this.myWebView2.ExecuteScriptAsync("document.getElementsByClassName('grow text-left')[9].click()");
-            _ = await this.myWebView2.ExecuteScriptAsync("document.getElementsByClassName('flex items-center focus:outline-none')[2].click()");
-        }
-        /// <summary>
-        /// LeetCode 外观 深色
-        /// </summary>
-        private async Task SetLeetCodeColorToDarkAsync()
-        {
-            _ = await this.myWebView2.ExecuteScriptAsync("document.getElementsByClassName('flex items-center focus:outline-none')[2].click()");
-            _ = await this.myWebView2.ExecuteScriptAsync("document.getElementsByClassName('grow text-left')[10].click()");
-            _ = await this.myWebView2.ExecuteScriptAsync("document.getElementsByClassName('flex items-center focus:outline-none')[2].click()");
-        }
-
-        #endregion
-
- 
+        #endregion 
 
         private void CoreWebView2_NewWindowRequested(object sender, CoreWebView2NewWindowRequestedEventArgs e)
         {
@@ -138,12 +103,12 @@ namespace LeetCodeVsExtension
         }
         private void BtnDarkColor_Click(object sender, RoutedEventArgs e)
         {
-            _ = SetLeetCodeColorToDarkAsync();
+            _ = LeetCodeWebView2Util.ColorToDarkAsync(this.myWebView2);
         }
 
         private void BtnLightColor_Click(object sender, RoutedEventArgs e)
         {
-            _ = SetLeetCodeColorToLightAsync();
+            _ = LeetCodeWebView2Util.ColorToLightAsync(this.myWebView2);
         }
 
         private void BtnClearBrowerData_Click(object sender, RoutedEventArgs e)
@@ -154,22 +119,22 @@ namespace LeetCodeVsExtension
         private async void BtnCopyText_ClickAsync(object sender, RoutedEventArgs e)
         {
             Community.VisualStudio.Toolkit.MessageBox message = new Community.VisualStudio.Toolkit.MessageBox();
-
             string text = await GetSelectTestAsync();
             if(!text.Any() || text.Equals("\"\""))
             {
-                await message.ShowErrorAsync("请选择输出");
+                _ = await message.ShowErrorAsync("请选择输出");
                 return;
             }
 
-            var code = StringUtil.ToListCode(text, out string errorMsg);
-            if (code == null)
+            try
             {
-                await message.ShowErrorAsync(errorMsg);
-                return;
+                var code = LeetCodeTopicUtil.TestCase2CShaperCode(text);
+                Clipboard.SetText(code);
             }
-
-            Clipboard.SetText(code);
+            catch (Exception ex)
+            {
+                _ = await message.ShowErrorAsync(ex.ToString());
+            }
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)

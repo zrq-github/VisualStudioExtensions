@@ -12,8 +12,6 @@ namespace LeetCodeVsExtension.Utils
     {
         public static string VsExtensionUserDataPath = $@"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "VsExtension")}";
         public static string WebView2UserDataFolderPath = VsExtensionUtil.VsExtensionUserDataPath;
-
-
         public static bool IsDarkTheme()
         {
             IVsUIShell5 vsShell = (IVsUIShell5)ServiceProvider.GlobalProvider.GetService(typeof(SVsUIShell));
