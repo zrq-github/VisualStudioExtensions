@@ -7,7 +7,7 @@ using System.Text.Json;
 
 namespace LeetCodeVsExtension.Utils
 {
-    internal static class StringUtil
+    public static class StringUtil
     {
         public class MyList<T> : List<T>
         {
