@@ -1,6 +1,6 @@
-﻿using LeetCodeVsExtension;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.InteropServices;
+using LeetCodeVsExtension;
 
 [assembly: AssemblyTitle(Vsix.Name)]
 [assembly: AssemblyDescription(Vsix.Description)]
@@ -16,7 +16,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion(Vsix.Version)]
 [assembly: AssemblyFileVersion(Vsix.Version)]
 
-namespace System.Runtime.CompilerServices
+namespace System.Runtime.CompilerServices;
+
+public class IsExternalInit
 {
-    public class IsExternalInit { }
 }

@@ -57,7 +57,7 @@ namespace TestProject1
             string inputString = "[1,2,3,0,0,0]";
 
             // Act
-            var result = LeetCodeVsExtension.Utils.LeetCodeTopicUtil.TestCase2CShaperCode(inputString);
+            var result = LeetCodeVsExtension.Utils.LeetCodeTopicUtil.TestCase2CSharpCode(inputString);
 
             // Assert
             Assert.AreEqual(result, "var input = new List<double>() { 1, 2, 3, 0, 0, 0};");
@@ -70,7 +70,7 @@ namespace TestProject1
             string inputString = "[\"FrequencyTracker\", \"add\", \"add\", \"hasFrequency\"]";
 
             // Act
-            var result = LeetCodeVsExtension.Utils.LeetCodeTopicUtil.TestCase2CShaperCode(inputString);
+            var result = LeetCodeVsExtension.Utils.LeetCodeTopicUtil.TestCase2CSharpCode(inputString);
 
             // Assert
             Assert.AreEqual(result, "var input = new List<string>() { \"FrequencyTracker\", \"add\", \"add\", \"hasFrequency\"};");

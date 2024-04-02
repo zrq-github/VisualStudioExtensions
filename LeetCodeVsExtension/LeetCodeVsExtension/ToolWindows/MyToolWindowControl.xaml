@@ -1,37 +1,85 @@
-<UserControl x:Class="LeetCodeVsExtension.MyToolWindowControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:imaging="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.Imaging"
-             xmlns:theming="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Imaging"
-             xmlns:util="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Utilities"
-             xmlns:catalog="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.ImageCatalog"
-             xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
-             xmlns:webview="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
-             toolkit:Themes.UseVsTheme="True"
-             mc:Ignorable="d"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
-             Name="MyToolWindow">
+<UserControl
+    x:Class="LeetCodeVsExtension.MyToolWindowControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
+    xmlns:webview="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+    d:DesignHeight="600"
+    d:DesignWidth="600"
+    toolkit:Themes.UseVsTheme="True"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/LeetCodeVsExtension;component/Resources/Theme/VsExtension.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
-        <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left">
-            <Button Width="50" x:Name="btnBack" Click="BtnBack_Click">后退</Button>
-            <Button Width="50" x:Name="btnForward" Margin="5,0,0,0" Click="BtnForward_Click">前进</Button>
-        </StackPanel>
+        <Grid.Resources>
+            <Style
+                BasedOn="{StaticResource DefaultButton}"
+                TargetType="Button">
+                <Setter Property="Margin" Value="3" />
+            </Style>
+            <Style TargetType="StackPanel">
+                <Setter Property="Margin" Value="2" />
+            </Style>
+        </Grid.Resources>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Width="50" x:Name="btnDarkColor" Content="黑色主题" Click="BtnDarkColor_Click"></Button>
-            <Button Width="50" x:Name="btnLightColor" Margin="5,0,0,0" Content="浅色主题" Click="BtnLightColor_Click"></Button>
-            <Button Width="50" x:Name="btnCopyText" Margin="5,0,0,0" Content="复制文字" Click="BtnCopyText_ClickAsync"></Button>
-            <Button Width="50" Visibility="Collapsed" x:Name="btnClearBrowerData" Margin="5,0,0,0" Content="清除浏览器数据" Click="BtnClearBrowerData_Click"></Button>
-        </StackPanel>
-        
-        <webview:WebView2 Grid.Row="1" x:Name="myWebView2"></webview:WebView2>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.Resources />
+
+            <StackPanel
+                HorizontalAlignment="Left"
+                Orientation="Horizontal">
+                <!--  TODO:后面替换成别的按钮 这个太丑了  -->
+                <StackPanel
+                    HorizontalAlignment="Left"
+                    Orientation="Horizontal">
+                    <Button
+                        Click="BtnBack_Click"
+                        Content=" 后 退 " />
+                    <Button
+                        Click="BtnForward_Click"
+                        Content=" 前 进 " />
+                </StackPanel>
+
+            </StackPanel>
+
+            <StackPanel
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <Button
+                    Click="BtnDarkColor_Click"
+                    Content="黑色主题" />
+                <Button
+                    Click="BtnLightColor_Click"
+                    Content="浅色主题" />
+                <Button
+                    Click="BtnCopyText_ClickAsync"
+                    Content="复制文字" />
+                <Button
+                    Click="BtnClearWebData_Click"
+                    Content="清除浏览器数据"
+                    Visibility="Collapsed" />
+            </StackPanel>
+        </Grid>
+
+        <webview:WebView2
+            x:Name="MyWebView2"
+            Grid.Row="1" />
     </Grid>
 </UserControl>
