@@ -1,4 +1,6 @@
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -71,6 +73,72 @@ public partial class MyToolWindowControl : UserControl
     {
         e.Handled = true;
         MyWebView2.CoreWebView2.Navigate(e.Uri);
+    }
+
+    /// <summary>
+    /// 创建题目
+    /// </summary>
+    private async Task CreateClassFileAsync()
+    {
+        // 获取题目名字
+        var topicName = await LeetCodeWebView2Util.GetTopicNameAsync(MyWebView2);
+        var codeContent = await LeetCodeWebView2Util.GetCode(MyWebView2);
+
+        // 获取激活项目
+        var project = await VS.Solutions.GetActiveProjectAsync();
+        if (project is null)
+        {
+            var model = new InfoBarModel("没有激活的项目");
+            _ = await VS.InfoBar.CreateAsync(model);
+            return;
+        }
+
+        // 获取项目目录路径
+        var projectPath = project.FullPath;
+        if (projectPath is null) return;
+        var projectDir = Path.GetDirectoryName(projectPath);
+        if (projectDir is null) return;
+        var projectDirName = Path.GetFileName(projectDir);
+
+        if (topicName is null or "") return;
+        topicName = topicName
+            .Replace(". ", "_")
+            .Replace(".", "_")
+            .Replace(" ", "_");
+
+        var className = $"Topic_{topicName}";
+        var classFilePath = Path.Combine(projectDir, $"{className}.cs");
+        // 检测文件是否已经存在
+        if (File.Exists(classFilePath))
+        {
+            return;
+            var model = new InfoBarModel("文件已经存在");
+            _ = await VS.InfoBar.CreateAsync(model);
+        }
+
+        var classContent = new StringBuilder();
+        classContent.AppendLine($"namespace {projectDirName};");
+        classContent.AppendLine($"{codeContent}");
+        classContent.Replace("public class Solution", $"public class {className}");
+        // 替换混合的行结束符为 CRLF
+        classContent.Replace("\r\n", "\n") // 先将 CRLF 替换为 LF
+            .Replace("\r", "\n")           // 将 CR 替换为 LF
+            .Replace("\n", "\r\n");        // 最后将 LF 替换为 CRLF
+
+        // 创建文件,写入文件信息
+        File.Create(classFilePath).Close();
+        File.WriteAllText(classFilePath, classContent.ToString(), Encoding.UTF8);
+
+        // 将文件添加到项目中
+        _ = await project.AddExistingFilesAsync(classFilePath);
+    }
+
+    /// <summary>
+    /// 创建题目事件
+    /// </summary>
+    private void CreateLeetCodeTopic(object sender, RoutedEventArgs e)
+    {
+        _ = CreateClassFileAsync();
     }
 
     /// <summary>

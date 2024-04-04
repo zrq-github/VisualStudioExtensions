@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.IO;
 using EnvDTE;
+using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Shell.Interop;
 
 namespace LeetCodeVsExtension.Utils;

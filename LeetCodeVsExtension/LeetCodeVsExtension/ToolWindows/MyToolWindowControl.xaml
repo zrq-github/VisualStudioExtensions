@@ -55,7 +55,12 @@
                         Click="BtnForward_Click"
                         Content=" 前 进 " />
                 </StackPanel>
-
+                <StackPanel>
+                    <Button
+                        Click="CreateLeetCodeTopic"
+                        Content="创建题目"
+                        ToolTip="会在激活的项目中创建" />
+                </StackPanel>
             </StackPanel>
 
             <StackPanel

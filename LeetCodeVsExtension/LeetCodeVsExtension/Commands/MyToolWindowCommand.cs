@@ -1,4 +1,4 @@
-﻿namespace LeetCodeVsExtension;
+﻿namespace LeetCodeVsExtension.Commands;
 
 [Command(PackageIds.MyCommand)]
 internal sealed class MyToolWindowCommand : BaseCommand<MyToolWindowCommand>
