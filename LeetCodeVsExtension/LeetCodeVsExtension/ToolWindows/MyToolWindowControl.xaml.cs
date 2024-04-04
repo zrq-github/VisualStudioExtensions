@@ -119,7 +119,7 @@ public partial class MyToolWindowControl : UserControl
         var classContent = new StringBuilder();
         classContent.AppendLine($"namespace {projectDirName};");
         classContent.AppendLine($"{codeContent}");
-        classContent.Replace("public class Solution", $"public class {className}");
+        classContent.Replace("Solution", $"{className}");
         // 替换混合的行结束符为 CRLF
         classContent.Replace("\r\n", "\n") // 先将 CRLF 替换为 LF
             .Replace("\r", "\n")           // 将 CR 替换为 LF
